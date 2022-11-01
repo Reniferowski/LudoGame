@@ -8,7 +8,7 @@ const GameTitle = ({ name, font, text }) => {
 		<Static items={["_"]}>
 			{() => {
 				return (
-					<Gradient {...{ name }}>
+					<Gradient key="" {...{ name }}>
 						<BigText {...{ text }} align="center" {...{ font }} />
 					</Gradient>
 				);
