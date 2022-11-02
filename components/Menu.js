@@ -1,13 +1,13 @@
-const { useFocusManager, useInput, Box } = require("ink");
 const React = require("react");
+const { useFocusManager, useInput, Box } = require("ink");
 const importJsx = require("import-jsx");
 const { useState } = require("react");
-const MenuOption = importJsx("./MenuOption");
+const MenuOption = importJsx("../components/MenuOption");
 
-const Menu = ({ setOption }) => {
+const Menu = ({ setOption, ...rest }) => {
 	const { focus } = useFocusManager();
 	const [index, setIndex] = useState(-1);
-	let indexes = ["newgame", "ranking", "exit"];
+	let indexes = Object.values(rest);
 
 	const mod = (n, m) => ((n % m) + m) % m;
 
@@ -35,9 +35,9 @@ const Menu = ({ setOption }) => {
 			paddingLeft={3}
 			width="20%"
 		>
-			<MenuOption id="newgame">Nowa Gra</MenuOption>
-			<MenuOption id="ranking">Ranking</MenuOption>
-			<MenuOption id="exit">Wyjście</MenuOption>
+			<MenuOption id={indexes[0]}>Nowa Gra</MenuOption>
+			<MenuOption id={indexes[1]}>Ranking</MenuOption>
+			<MenuOption id={indexes[2]}>Wyjście</MenuOption>
 		</Box>
 	);
 };

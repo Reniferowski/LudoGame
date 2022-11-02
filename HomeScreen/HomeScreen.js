@@ -1,18 +1,19 @@
 const React = require("react");
-const { Box, Text } = require("ink");
+const { Box } = require("ink");
 const importJsx = require("import-jsx");
-const { useState } = require("react");
-const GameTitle = importJsx("./GameTitle");
-const Menu = importJsx("./Menu");
+const Title = importJsx("../components/Title");
+const Menu = importJsx("../components/Menu");
 
-const HomeScreen = () => {
-	const [option, setOption] = useState("");
-
+const HomeScreen = ({ setOption }) => {
 	return (
 		<Box flexDirection="column">
-			<GameTitle name="morning" text="Ludo Game" font="block" />
-			<Menu {...{ setOption }} />
-			<Text>{option}</Text>
+			<Title name="morning" text="Ludo Game" font="block" />
+			<Menu
+				{...{ setOption }}
+				newgame="newgame"
+				ranking="ranking"
+				exit="exit"
+			/>
 		</Box>
 	);
 };
