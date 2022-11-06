@@ -5,6 +5,7 @@ const { useState, useCallback } = require("react");
 const ChoosePlayerMenu = importJsx("./ChoosePlayerMenu");
 const PlayersList = importJsx("./PlayersList");
 const Title = importJsx("../components/Title");
+const GameBoard = importJsx("./Board/GameBoard");
 
 const NewGame = () => {
 	const [players, setPlayers] = useState({});
@@ -22,17 +23,17 @@ const NewGame = () => {
 
 	return (
 		<Box flexDirection="column">
-			<Title name="morning" text="Ludo Game" font="block" />
+			{/* <Title name="morning" text="Ludo Game" font="block" /> */}
 			<Box
-				borderStyle="round"
-				borderColor={pickTheme}
+				//borderStyle="round"
+				//borderColor={pickTheme}
 				width={80}
-				height={30}
+				//height={30}
 				alignSelf="center"
-				justifyContent="center"
+				//justifyContent="center"
 				flexDirection="column"
 			>
-				{!startGame ? (
+				{/* {!startGame ? (
 					<>
 						<ChoosePlayerMenu
 							{...{
@@ -54,9 +55,9 @@ const NewGame = () => {
 							}}
 						/>
 					</>
-				) : (
-					<Text>{Object.keys(players).join(",")}</Text>
-				)}
+				) : ( */}
+				<GameBoard />
+				{/* )} */}
 			</Box>
 		</Box>
 	);
