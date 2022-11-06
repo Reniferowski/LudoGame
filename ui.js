@@ -9,10 +9,24 @@ const HomeScreen = importJsx("./HomeScreen/HomeScreen");
 const NewGame = importJsx("./NewGame/NewGame");
 
 const App = () => {
-	const [option, setOption] = useState("");
+	const [homeScreenOption, setHomeScreenOption] = useState("");
 	const view =
-		option === "newgame" ? <NewGame /> : <HomeScreen {...{ setOption }} />;
-	return <Box flexDirection="column">{view}</Box>;
+		homeScreenOption === "newgame" ? (
+			<NewGame />
+		) : (
+			<HomeScreen setOption={setHomeScreenOption} />
+		);
+	return (
+		<Box
+			flexDirection="column"
+			minWidth={100}
+			minHeight={50}
+			borderStyle="round"
+			borderColor="red"
+		>
+			{view}
+		</Box>
+	);
 };
 
 module.exports = App;
