@@ -11,7 +11,7 @@ const ChoosePlayerMenu = ({
 	players,
 }) => {
 	const [pickedColor, setPickedColor] = useState(-1);
-	const theme = ["red", "green", "blue", "yellow"];
+	const theme = ["green", "red", "blue", "yellow"];
 
 	useInput((_, key) => {
 		if (key.tab) {

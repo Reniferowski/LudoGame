@@ -1,27 +1,7 @@
 [
-	{
-		"id": 1,
-		"username": "Kamil",
-		"score": 0
-	},
-	{
-		"id": 2,
-		"username": "Dariusz",
-		"score": 0
-	},
-	{
-		"id": 3,
-		"username": "Małgorzata",
-		"score": 0
-	},
-	{
-		"id": 4,
-		"username": "Grzesiek",
-		"score": 0
-	},
-	{
-		"id": 500,
-		"username": "Mojżesz",
-		"score": 0
-	}
+	{ "id": 1, "username": "Kamil", "score": 0 },
+	{ "id": 2, "username": "Dariusz", "score": 0 },
+	{ "id": 3, "username": "Małgorzata", "score": 6 },
+	{ "id": 4, "username": "Grzesiek", "score": 3 },
+	{ "id": 500, "username": "Mojżesz", "score": 0 }
 ]

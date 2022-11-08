@@ -1,11 +1,95 @@
 const React = require("react");
-const { Box } = require("ink");
+const { Box, Text, useInput } = require("ink");
 const importJsx = require("import-jsx");
 const Square = importJsx("./Square");
 const Home = importJsx("./Home");
 const Center = importJsx("./Center");
+const Winner = importJsx("./Winner");
+const {
+	initialBlue,
+	initialYellow,
+	initialGreen,
+	initialRed,
+} = require("./pawns");
+const { useState } = require("react");
+const { pawnOperation } = require("../misc/PawnMovement");
 
-const GameBoard = () => {
+const GameBoard = ({ players }) => {
+	const [playerTurn, setPlayerTurn] = useState("blue");
+	const [diceRoll, setDiceRoll] = useState(0);
+	const [rolled, setRolled] = useState(false);
+	const [activatePawn, setActivatePawn] = useState(false);
+	const [pawnNumber, setPawnNumber] = useState(1);
+	const [winner, setWinner] = useState(false);
+	const [isActiveBluePawn, setIsActiveBluePawn] = useState(initialBlue);
+	const [isActiveYellowPawn, setIsActiveYellowPawn] = useState(initialYellow);
+	const [isActiveGreenPawn, setIsActiveGreenPawn] = useState(initialGreen);
+	const [isActiveRedPawn, setIsActiveRedPawn] = useState(initialRed);
+
+	useInput((input, key) => {
+		if (input === " ") {
+			!rolled && setDiceRoll(Math.floor(Math.random() * 6 + 1));
+		}
+		if (key.upArrow) {
+			pawnOperation(
+				"move",
+				playerTurn,
+				diceRoll,
+				pawnNumber,
+				setIsActiveBluePawn,
+				setIsActiveYellowPawn,
+				setIsActiveGreenPawn,
+				setIsActiveRedPawn,
+				setWinner,
+				isActiveBluePawn,
+				isActiveYellowPawn,
+				isActiveGreenPawn,
+				isActiveRedPawn
+			);
+			setRolled(true);
+			setDiceRoll(0);
+		}
+		if (key.downArrow) {
+			if (diceRoll === 6 && !activatePawn) {
+				pawnOperation(
+					"activate",
+					playerTurn,
+					null,
+					null,
+					setIsActiveBluePawn,
+					setIsActiveYellowPawn,
+					setIsActiveGreenPawn,
+					setIsActiveRedPawn,
+					null,
+					isActiveBluePawn,
+					isActiveYellowPawn,
+					isActiveGreenPawn,
+					isActiveRedPawn
+				);
+				setDiceRoll(0);
+				setActivatePawn(true);
+			}
+		}
+		if (key.leftArrow) {
+			if (pawnNumber > 1) setPawnNumber(pawnNumber - 1);
+		}
+		if (key.rightArrow) {
+			if (pawnNumber < 4) setPawnNumber(pawnNumber + 1);
+		}
+		if (key.return) {
+			setRolled(false);
+			setActivatePawn(false);
+			setPawnNumber(1);
+			setPlayerTurn(
+				Object.keys(players)[
+					(Object.keys(players).indexOf(playerTurn) + 1) %
+						Object.keys(players).length
+				]
+			);
+			setDiceRoll(0);
+		}
+	});
+
 	return (
 		<Box
 			alignSelf="center"
@@ -13,112 +97,749 @@ const GameBoard = () => {
 			justifyContent="center"
 			alignItems="center"
 		>
-			{/* First Row */}
-			<Box flexDirection="row">
-				<Home color="blue" />
-				<Box flexDirection="row">
-					<Box flexDirection="column">
-						<Square />
-						<Square />
-						<Square />
-						<Square />
-						<Square />
-					</Box>
-					<Box flexDirection="column">
-						<Square />
-						<Square color="yellow" />
-						<Square color="yellow" />
-						<Square color="yellow" />
-						<Square color="yellow" />
-					</Box>
-					<Box flexDirection="column">
-						<Square />
-						<Square color="yellow" />
-						<Square />
-						<Square />
-						<Square />
-					</Box>
-				</Box>
-				<Home color="yellow" />
-			</Box>
-			{/* Second Row */}
-			<Box flexDirection="row">
-				<Box flexDirection="Column">
+			{!winner ? (
+				<>
+					{/* First Row */}
 					<Box flexDirection="row">
-						<Square mRight />
-						<Square mRight color="blue" />
-						<Square mRight />
-						<Square mRight />
-						<Square />
+						<Home
+							color="blue"
+							player={
+								players[
+									Object.keys(players)[Object.keys(players).indexOf("blue")]
+								]
+							}
+							pawns={isActiveBluePawn}
+						/>
+						<Box flexDirection="row">
+							<Box flexDirection="column">
+								<Square
+									id={42}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={41}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={40}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={39}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={38}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="column">
+								<Square
+									id={43}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="yellow"
+									id={200}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="yellow"
+									id={201}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="yellow"
+									id={202}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="yellow"
+									id={203}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="column">
+								<Square
+									id={44}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="yellow"
+									id={1}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={2}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={3}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={4}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+						</Box>
+						<Home
+							color="yellow"
+							player={
+								players[
+									Object.keys(players)[Object.keys(players).indexOf("yellow")]
+								]
+							}
+							pawns={isActiveYellowPawn}
+						/>
 					</Box>
+					{/* Second Row */}
 					<Box flexDirection="row">
-						<Square mRight />
-						<Square mRight color="blue" />
-						<Square mRight color="blue" />
-						<Square mRight color="blue" />
-						<Square color="blue" />
+						<Box flexDirection="Column">
+							<Box flexDirection="row">
+								<Square
+									mRight
+									id={33}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									color="blue"
+									id={34}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									id={35}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									id={36}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={37}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="row">
+								<Square
+									mRight
+									id={32}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									color="blue"
+									id={100}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									color="blue"
+									id={101}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									color="blue"
+									id={102}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="blue"
+									id={103}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="row">
+								<Square
+									mRight
+									id={31}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									id={30}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									id={29}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mRight
+									id={28}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={27}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+						</Box>
+						<Center {...{ diceRoll, playerTurn, players, pawnNumber }} />
+						<Box flexDirection="column">
+							<Box flexDirection="row">
+								<Square
+									id={5}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={6}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={7}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={8}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={9}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="row">
+								<Square
+									color="green"
+									id={303}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									color="green"
+									id={302}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									color="green"
+									id={301}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									color="green"
+									id={300}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={10}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="row">
+								<Square
+									id={15}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={14}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={13}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									color="green"
+									id={12}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									mLeft
+									id={11}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+						</Box>
 					</Box>
+					{/* Third Row */}
 					<Box flexDirection="row">
-						<Square mRight />
-						<Square mRight />
-						<Square mRight />
-						<Square mRight />
-						<Square />
+						<Home
+							color="red"
+							player={
+								players[
+									Object.keys(players)[Object.keys(players).indexOf("red")]
+								]
+							}
+							pawns={isActiveRedPawn}
+						/>
+						<Box flexDirection="row">
+							<Box flexDirection="column">
+								<Square
+									id={26}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={25}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={24}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="red"
+									id={23}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={22}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="column">
+								<Square
+									color="red"
+									id={403}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="red"
+									id={402}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="red"
+									id={401}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									color="red"
+									id={400}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={21}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+							<Box flexDirection="column">
+								<Square
+									id={16}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={17}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={18}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={19}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+								<Square
+									id={20}
+									{...{
+										playerTurn,
+										isActiveBluePawn,
+										isActiveYellowPawn,
+										isActiveGreenPawn,
+										isActiveRedPawn,
+									}}
+								/>
+							</Box>
+						</Box>
+						<Home
+							color="green"
+							player={
+								players[
+									Object.keys(players)[Object.keys(players).indexOf("green")]
+								]
+							}
+							pawns={isActiveGreenPawn}
+						/>
 					</Box>
-				</Box>
-				<Center />
-				<Box flexDirection="column">
-					<Box flexDirection="row">
-						<Square />
-						<Square mLeft />
-						<Square mLeft />
-						<Square mLeft />
-						<Square mLeft />
+					<Box flexDirection="column" paddingTop={1}>
+						<Text>[Enter] - zakończ turę</Text>
+						<Text>[Spacja] - rzut kostką</Text>
+						<Text>[{"\u2191"}] - Rusz pionkiem o wyrzuconą ilość pól</Text>
+						<Text>
+							[{"\u2193"}] - Wyjdź kolejnym pionkiem(jeśli została wyrzucona
+							liczba 6),
+						</Text>
+						<Text>
+							{"      "}możesz rzucić kostką jeszcze raz, aby wykonać ruch
+						</Text>
+						<Text>
+							[{"\u2190"}] [{"\u2192"}] - Zmień pionek, którym się poruszasz
+						</Text>
 					</Box>
-					<Box flexDirection="row">
-						<Square color="green" />
-						<Square mLeft color="green" />
-						<Square mLeft color="green" />
-						<Square mLeft color="green" />
-						<Square mLeft />
-					</Box>
-					<Box flexDirection="row">
-						<Square />
-						<Square mLeft />
-						<Square mLeft />
-						<Square mLeft color="green" />
-						<Square mLeft />
-					</Box>
-				</Box>
-			</Box>
-			{/* Third Row */}
-			<Box flexDirection="row">
-				<Home color="red" />
-				<Box flexDirection="row">
-					<Box flexDirection="column">
-						<Square />
-						<Square />
-						<Square />
-						<Square color="red" />
-						<Square />
-					</Box>
-					<Box flexDirection="column">
-						<Square color="red" />
-						<Square color="red" />
-						<Square color="red" />
-						<Square color="red" />
-						<Square />
-					</Box>
-					<Box flexDirection="column">
-						<Square />
-						<Square />
-						<Square />
-						<Square />
-						<Square />
-					</Box>
-				</Box>
-				<Home color="green" />
-			</Box>
+				</>
+			) : (
+				<Winner player={players[playerTurn]} />
+			)}
 		</Box>
 	);
 };

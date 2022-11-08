@@ -20,7 +20,7 @@ const Menu = ({ theme, setOption, players, ...rest }) => {
 		);
 
 	useInput((_, key) => {
-		if (key.upArrow) {
+		if (key.downArrow) {
 			focus(
 				isObject
 					? getIndexes()[mod(index + 1, getIndexes().length)].id
@@ -28,7 +28,7 @@ const Menu = ({ theme, setOption, players, ...rest }) => {
 			);
 			setIndex(index + 1);
 		}
-		if (key.downArrow) {
+		if (key.upArrow) {
 			focus(
 				isObject
 					? getIndexes()[mod(index - 1, getIndexes().length)].id
@@ -37,7 +37,6 @@ const Menu = ({ theme, setOption, players, ...rest }) => {
 			setIndex(index - 1);
 		}
 		if (key.return) {
-			//console.log(indexes[mod(index, indexes.length)])
 			isObject
 				? setOption(getIndexes()[mod(index, getIndexes().length)], theme)
 				: setOption(getIndexes()[mod(index, getIndexes().length)]);
@@ -54,9 +53,6 @@ const Menu = ({ theme, setOption, players, ...rest }) => {
 			paddingLeft={3}
 			width={isObject ? "60%" : "15%"}
 		>
-			{/* <MenuOption id={indexes[0]}>Nowa Gra</MenuOption>
-			<MenuOption id={indexes[1]}>Ranking</MenuOption>
-			<MenuOption id={indexes[2]}>Wyjście</MenuOption> */}
 			{getIndexes().map((element) => (
 				<MenuOption
 					key={isObject ? element.id : element}

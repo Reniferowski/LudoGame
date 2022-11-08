@@ -1,5 +1,5 @@
 const React = require("react");
-const { Box, Text, useInput } = require("ink");
+const { Box, useInput } = require("ink");
 const importJsx = require("import-jsx");
 const { useState, useCallback } = require("react");
 const ChoosePlayerMenu = importJsx("./ChoosePlayerMenu");
@@ -23,18 +23,18 @@ const NewGame = () => {
 
 	return (
 		<Box flexDirection="column">
-			{/* <Title name="morning" text="Ludo Game" font="block" /> */}
-			<Box
-				//borderStyle="round"
-				//borderColor={pickTheme}
-				width={80}
-				//height={30}
-				alignSelf="center"
-				//justifyContent="center"
-				flexDirection="column"
-			>
-				{/* {!startGame ? (
-					<>
+			{!startGame ? (
+				<>
+					<Title name="morning" text="Ludo Game" font="block" />
+					<Box
+						borderStyle="round"
+						borderColor={pickTheme}
+						width={80}
+						height={30}
+						alignSelf="center"
+						justifyContent="center"
+						flexDirection="column"
+					>
 						<ChoosePlayerMenu
 							{...{
 								showPlayers,
@@ -54,11 +54,11 @@ const NewGame = () => {
 								players,
 							}}
 						/>
-					</>
-				) : ( */}
-				<GameBoard />
-				{/* )} */}
-			</Box>
+					</Box>
+				</>
+			) : (
+				<GameBoard {...{ players }} />
+			)}
 		</Box>
 	);
 };
