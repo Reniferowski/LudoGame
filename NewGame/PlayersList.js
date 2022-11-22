@@ -1,10 +1,10 @@
 const React = require("react");
 const { Box, Text, useInput } = require("ink");
 const importJsx = require("import-jsx");
-const { getUsers } = require("./misc/getUsers");
+const { getUsers } = require("../ManageUser/getUsers");
 const Menu = importJsx("../components/Menu");
 
-const { playerToPL } = require("./misc/theme");
+const { playerToPL } = require("../Misc/theme");
 
 const PlayersList = ({
 	showPlayers,

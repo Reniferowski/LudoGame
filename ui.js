@@ -7,7 +7,7 @@ const importJsx = require("import-jsx");
 
 const HomeScreen = importJsx("./HomeScreen/HomeScreen");
 const NewGame = importJsx("./NewGame/NewGame");
-const Ranking = importJsx("./Ranking");
+const Ranking = importJsx("./components/Ranking");
 const Title = importJsx("./components/Title");
 
 const App = () => {

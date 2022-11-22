@@ -10,9 +10,9 @@ const {
 	initialYellow,
 	initialGreen,
 	initialRed,
-} = require("./pawns");
+} = require("../../GameLogic/pawns");
 const { useState } = require("react");
-const { pawnOperation } = require("../misc/PawnMovement");
+const { pawnOperation, roll } = require("../../GameLogic/pawnMovement");
 
 const GameBoard = ({ players }) => {
 	const [playerTurn, setPlayerTurn] = useState("blue");
@@ -28,7 +28,7 @@ const GameBoard = ({ players }) => {
 
 	useInput((input, key) => {
 		if (input === " ") {
-			!rolled && setDiceRoll(Math.floor(Math.random() * 6 + 1));
+			!rolled && setDiceRoll(roll());
 		}
 		if (key.upArrow) {
 			pawnOperation(

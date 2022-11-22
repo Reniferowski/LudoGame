@@ -2,17 +2,7 @@ const React = require("react");
 const importJsx = require("import-jsx");
 const { Box, Text } = require("ink");
 const Title = importJsx("../../components/Title");
-const { getUsers } = require("../misc/getUsers");
-const fs = require("fs");
-
-const addScore = (player) => {
-	const users = getUsers();
-	const updatedUsers = users.map((user) => {
-		if (user.username === player.username) user.score += 1;
-		return user;
-	});
-	fs.writeFileSync("users.json", JSON.stringify(updatedUsers));
-};
+const { addScore } = require("../../ManageUser/addScore");
 
 const Winner = ({ player }) => {
 	addScore(player);

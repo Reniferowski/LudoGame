@@ -1,8 +1,8 @@
 const React = require("react");
 const { Box, Text, useInput } = require("ink");
-const { getUsers } = require("./NewGame/misc/getUsers");
+const { getUsers } = require("../ManageUser/getUsers");
 const importJsx = require("import-jsx");
-const Title = importJsx("./components/Title");
+const Title = importJsx("./Title");
 
 const Ranking = ({ setHomeScreenOption }) => {
 	useInput((_, key) => {
@@ -20,8 +20,8 @@ const Ranking = ({ setHomeScreenOption }) => {
 				alignSelf="center"
 				width={80}
 				height={30}
-                paddingLeft={20}
-                paddingTop={3}
+				paddingLeft={20}
+				paddingTop={3}
 			>
 				{users.map((user, id) => (
 					<Text key={user.id}>

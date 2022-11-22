@@ -3,13 +3,13 @@ const { useFocusManager, useInput, Box } = require("ink");
 const importJsx = require("import-jsx");
 const { useState } = require("react");
 const MenuOption = importJsx("../components/MenuOption");
-const elementToPL = require("./elementToPL");
+const elementToPL = require("../Misc/elementToPL");
+const modulo = require("../Misc/modulo");
 
 const Menu = ({ theme, setOption, players, ...rest }) => {
 	const { focus } = useFocusManager();
 	const [index, setIndex] = useState(-1);
 	let indexes = Object.values(rest);
-	const mod = (n, m) => ((n % m) + m) % m;
 	const isObject = typeof indexes[0] === "object";
 
 	const getIndexes = () =>
@@ -23,23 +23,23 @@ const Menu = ({ theme, setOption, players, ...rest }) => {
 		if (key.downArrow) {
 			focus(
 				isObject
-					? getIndexes()[mod(index + 1, getIndexes().length)].id
-					: getIndexes()[mod(index + 1, getIndexes().length)]
+					? getIndexes()[modulo(index + 1, getIndexes().length)].id
+					: getIndexes()[modulo(index + 1, getIndexes().length)]
 			);
 			setIndex(index + 1);
 		}
 		if (key.upArrow) {
 			focus(
 				isObject
-					? getIndexes()[mod(index - 1, getIndexes().length)].id
-					: getIndexes()[mod(index - 1, getIndexes().length)]
+					? getIndexes()[modulo(index - 1, getIndexes().length)].id
+					: getIndexes()[modulo(index - 1, getIndexes().length)]
 			);
 			setIndex(index - 1);
 		}
 		if (key.return) {
 			isObject
-				? setOption(getIndexes()[mod(index, getIndexes().length)], theme)
-				: setOption(getIndexes()[mod(index, getIndexes().length)]);
+				? setOption(getIndexes()[modulo(index, getIndexes().length)], theme)
+				: setOption(getIndexes()[modulo(index, getIndexes().length)]);
 		}
 	});
 	return (

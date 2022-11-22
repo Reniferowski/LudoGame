@@ -5,7 +5,7 @@ const {
 	pawnPlacement,
 	isPawnOnId,
 	showPawn,
-} = require("../misc/PawnMovement");
+} = require("../../GameLogic/pawnMovement");
 
 const Square = ({
 	id,

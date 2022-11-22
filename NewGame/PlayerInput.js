@@ -1,6 +1,6 @@
 const React = require("react");
 const { Box, Text, useFocus } = require("ink");
-const { simulateBGColor, writePlayer, fillPlayer } = require("./misc/theme");
+const { simulateBGColor, writePlayer, fillPlayer } = require("../Misc/theme");
 
 const PlayerInput = ({ theme, player }) => {
 	const { isFocused } = useFocus();

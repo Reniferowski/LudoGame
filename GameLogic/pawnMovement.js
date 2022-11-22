@@ -165,3 +165,7 @@ const showPawn = (pawn, pawnOnId, id, playerTurn) => {
 };
 
 exports.showPawn = showPawn;
+
+const roll = () => Math.floor(Math.random() * 6 + 1);
+
+exports.roll = roll;
