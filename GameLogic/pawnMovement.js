@@ -73,7 +73,6 @@ const activatePawn = (
 	const updatedActivePawns = updateActivePawns(playerTurn, updatePawns);
 	setActivePawns(updatedActivePawns);
 };
-exports.activatePawn = activatePawn;
 
 const pawnOperation = (
 	operation,
@@ -123,7 +122,6 @@ const pawnOperation = (
 			allPawns[index].starting
 		);
 };
-exports.pawnOperation = pawnOperation;
 
 const chooseActive = (playerTurn, ...allPawns) => {
 	if (playerTurn === "blue") return allPawns[0][playerTurn];
@@ -131,13 +129,11 @@ const chooseActive = (playerTurn, ...allPawns) => {
 	if (playerTurn === "green") return allPawns[2][playerTurn];
 	if (playerTurn === "red") return allPawns[3][playerTurn];
 };
-exports.chooseActive = chooseActive;
 
 const pawnPlacement = (activePawn, id) => {
 	const placePawn = activePawn.filter((pawn) => pawn.position === id);
 	return placePawn[0];
 };
-exports.pawnPlacement = pawnPlacement;
 
 const isPawnOnId = (id, ...allPawns) => {
 	const colors = ["blue", "yellow", "green", "red"];
@@ -151,7 +147,6 @@ const isPawnOnId = (id, ...allPawns) => {
 	});
 	return foundPawn;
 };
-exports.isPawnOnId = isPawnOnId;
 
 const showPawn = (pawn, pawnOnId, id, playerTurn) => {
 	if (pawnOnId === undefined) {
@@ -164,8 +159,23 @@ const showPawn = (pawn, pawnOnId, id, playerTurn) => {
 	return pawnOnId;
 };
 
-exports.showPawn = showPawn;
-
 const roll = () => Math.floor(Math.random() * 6 + 1);
 
-exports.roll = roll;
+//export { activatePawn };
+//exports.activatePawn = activatePawn;
+
+// exports.showPawn = showPawn;
+// exports.isPawnOnId = isPawnOnId;
+// exports.pawnPlacement = pawnPlacement;
+// exports.chooseActive = chooseActive;
+// exports.pawnOperation = pawnOperation;
+//exports.roll = roll;
+module.exports = {
+	activatePawn: activatePawn,
+	showPawn: showPawn,
+	isPawnOnId: isPawnOnId,
+	pawnPlacement: pawnPlacement,
+	chooseActive: chooseActive,
+	pawnOperation: pawnOperation,
+	roll: roll,
+};

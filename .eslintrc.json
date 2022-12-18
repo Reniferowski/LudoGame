@@ -13,9 +13,10 @@
 	"overrides": [],
 	"parser": "@babel/eslint-parser",
 	"parserOptions": {
+		"requireConfigFile": false,
 		"ecmaVersion": "latest"
 	},
-	"plugins": ["react", "react-hooks"],
+	"plugins": ["react", "react-hooks", "jsx"],
 	"rules": {
 		"react/prop-types": 0,
 		"react-hooks/rules-of-hooks": "error",

@@ -1,6 +1,7 @@
 "use strict";
 const React = require("react");
 const { useState } = require("react");
+const { spawn } = require("child_process");
 
 const { Box } = require("ink");
 const importJsx = require("import-jsx");
@@ -12,6 +13,10 @@ const Title = importJsx("./components/Title");
 
 const App = () => {
 	const [homeScreenOption, setHomeScreenOption] = useState("");
+
+	if (homeScreenOption === "web") {
+		spawn("cmd.exe", ["/c", "script.bat"]);
+	}
 
 	const view =
 		homeScreenOption === "newgame" ? (
@@ -26,7 +31,7 @@ const App = () => {
 		) : (
 			<HomeScreen setOption={setHomeScreenOption} />
 		);
-	return (
+	return homeScreenOption === "web" ? null : (
 		<Box
 			flexDirection="column"
 			minWidth={100}

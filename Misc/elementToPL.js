@@ -3,6 +3,8 @@ const elementToPL = (element) =>
 		? "Nowa gra"
 		: element === "ranking"
 		? "Ranking"
+		: element === "web"
+		? "Tryb Graficzny"
 		: "Wyjście";
 
 module.exports = elementToPL;

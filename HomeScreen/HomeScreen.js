@@ -12,6 +12,7 @@ const HomeScreen = ({ setOption }) => {
 				{...{ setOption }}
 				newgame="newgame"
 				ranking="ranking"
+				web="web"
 				exit="exit"
 			/>
 		</Box>
