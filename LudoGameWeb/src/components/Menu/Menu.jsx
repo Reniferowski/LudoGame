@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 const elementToPL = require("../../../../Misc/elementToPL");
 
-const Menu = ({ setOption, players, ...rest }) => {
-	const [index, setIndex] = useState(-1);
+const Menu = ({ theme, setOption, players, ...rest }) => {
 	let indexes = Object.values(rest);
 	const isobject = typeof indexes[0] === "object";
-	console.log(index);
 
 	const getIndexes = () =>
 		indexes.filter((element) =>
@@ -20,7 +18,11 @@ const Menu = ({ setOption, players, ...rest }) => {
 				<button
 					key={isobject ? element.id : element}
 					id={isobject ? element.id : element}
-					onClick={() => setOption(getIndexes()[id - 1])}
+					onClick={() =>
+						isobject
+							? setOption(getIndexes()[id], theme)
+							: setOption(getIndexes()[id])
+					}
 				>
 					{isobject
 						? element.username + ", wygrane: " + element.score
