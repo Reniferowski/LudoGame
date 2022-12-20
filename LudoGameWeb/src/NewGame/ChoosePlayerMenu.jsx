@@ -11,7 +11,6 @@ const ChoosePlayerMenu = ({
 	const theme = ["green", "red", "blue", "yellow"];
 
 	const handleClick = (pickedColor) => {
-		console.log(pickedColor);
 		setPickTheme(
 			pickedColor === "green"
 				? theme[0]
@@ -29,8 +28,6 @@ const ChoosePlayerMenu = ({
 			style={{
 				display: showPlayers ? "flex" : "none",
 				flexDirection: "column",
-				height: "100px",
-				width: "100px",
 			}}
 		>
 			<div style={{ display: "flex", flexDirection: "row", height: "100px" }}>
