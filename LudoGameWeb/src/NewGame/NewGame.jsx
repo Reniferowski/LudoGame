@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import ChoosePlayerMenu from "./ChoosePlayerMenu";
 import PlayersList from "./PlayersList";
 import GameBoard from "./Board/GameBoard";
+import Title from "../components/Title/Title";
 
 const NewGame = () => {
 	const [players, setPlayers] = useState({});
@@ -20,35 +21,38 @@ const NewGame = () => {
 	};
 
 	return (
-		<div style={{ display: "flex" }}>
-			{!startGame ? (
-				<>
-					<ChoosePlayerMenu
-						{...{
-							showPlayers,
-							setShowPlayers,
-							setPickTheme,
-							pickTheme,
-							players,
-						}}
-					/>
-					<PlayersList
-						{...{
-							showPlayers,
-							setShowPlayers,
-							setPickTheme,
-							pickTheme,
-							addPlayer,
-							players,
-						}}
-					/>
-					<button onClick={handleStart}>Rozpocznij grę</button>
-				</>
-			) : (
-				<GameBoard {...{ players }} />
-			)}
-			{/* {startGame && <h1>eeessa</h1>} */}
-		</div>
+		<>
+			{!startGame && <Title />}
+			<div style={{ display: "flex", placeContent: "center" }}>
+				{!startGame ? (
+					<>
+						<ChoosePlayerMenu
+							{...{
+								showPlayers,
+								setShowPlayers,
+								setPickTheme,
+								pickTheme,
+								players,
+								handleStart,
+							}}
+						/>
+						<PlayersList
+							{...{
+								showPlayers,
+								setShowPlayers,
+								setPickTheme,
+								pickTheme,
+								addPlayer,
+								players,
+							}}
+						/>
+					</>
+				) : (
+					<GameBoard {...{ players }} />
+				)}
+				{/* {startGame && <h1>eeessa</h1>} */}
+			</div>
+		</>
 	);
 };
 

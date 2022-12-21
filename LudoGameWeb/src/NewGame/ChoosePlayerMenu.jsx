@@ -6,6 +6,7 @@ const ChoosePlayerMenu = ({
 	setPickTheme,
 	showPlayers,
 	players,
+	handleStart,
 }) => {
 	const [pickedColor, setPickedColor] = useState(-1);
 	const theme = ["green", "red", "blue", "yellow"];
@@ -28,9 +29,10 @@ const ChoosePlayerMenu = ({
 			style={{
 				display: showPlayers ? "flex" : "none",
 				flexDirection: "column",
+				position: "relative",
 			}}
 		>
-			<div style={{ display: "flex", flexDirection: "row", height: "100px" }}>
+			<div style={{ display: "flex", flexDirection: "row" }}>
 				<PlayerInput
 					player={players[theme[0]]?.username}
 					theme={theme[0]}
@@ -42,7 +44,21 @@ const ChoosePlayerMenu = ({
 					onClick={handleClick}
 				/>
 			</div>
-			<div style={{ display: "flex", flexDirection: "row", height: "100px" }}>
+			{Object.keys(players).length >= 4 && (
+				<button
+					style={{
+						height: "50px",
+						position: "absolute",
+						left: "295px",
+						top: "162.5px",
+						padding: "8px",
+					}}
+					onClick={handleStart}
+				>
+					Rozpocznij grę
+				</button>
+			)}
+			<div style={{ display: "flex", flexDirection: "row" }}>
 				<PlayerInput
 					player={players[theme[2]]?.username}
 					theme={theme[2]}

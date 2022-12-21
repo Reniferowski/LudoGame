@@ -10,8 +10,8 @@ function App() {
 		homeScreenOption === "newgame" ? (
 			<NewGame />
 		) : homeScreenOption === "ranking" ? (
-			<Ranking />
-		) : (
+			<Ranking setOption={setHomeScreenOption} />
+		) : homeScreenOption === "exit" ? window.close() : (
 			<HomeScreen setOption={setHomeScreenOption} />
 		);
 	return <div>{view}</div>;

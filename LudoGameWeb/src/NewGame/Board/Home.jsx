@@ -6,32 +6,78 @@ const Home = ({ color, player, pawns }) => {
 		<div
 			style={{
 				border: borderTheme,
-                borderRadius: "10px",
+				borderRadius: "10px",
 				display: "flex",
 				flexDirection: "column",
 				width: "320px",
+				placeContent: "center",
 			}}
 		>
-			<div>{player?.username}</div>
-			<div
-				style={{ border: borderTheme, display: "flex", flexDirection: "row" }}
-			>
-				{pawns[color].map(
-					(pawn) =>
-						[1, 2].includes(pawn.index) && (
-							<div key={pawn.index}>{pawn.index}</div>
-						)
-				)}
+			<div style={{ color: color, fontWeight: "bold", fontSize: "20px" }}>
+				{player?.username}
 			</div>
 			<div
-				style={{ border: borderTheme, display: "flex", flexDirection: "row" }}
+				style={{
+					margin: "30px",
+					display: "flex",
+					placeContent: "center",
+				}}
 			>
-				{pawns[color].map(
-					(pawn) =>
-						[3, 4].includes(pawn.index) && (
-							<div key={pawn.index}>{pawn.index}</div>
-						)
-				)}
+				<div
+					style={{
+						width: "100px",
+						border: borderTheme,
+						borderRadius: "10px",
+						padding: "5px",
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "center",
+						}}
+					>
+						{pawns[color].map(
+							(pawn) =>
+								[1, 2].includes(pawn.index) && (
+									<div
+										style={{
+											width: "35px",
+											height: "35px",
+											backgroundColor: pawn.position === 0 && color,
+											borderRadius: "50%",
+											margin: "5px",
+										}}
+										key={pawn.index}
+									></div>
+								)
+						)}
+					</div>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "center",
+						}}
+					>
+						{pawns[color].map(
+							(pawn) =>
+								[3, 4].includes(pawn.index) && (
+									<div
+										style={{
+											width: "35px",
+											height: "35px",
+											backgroundColor: pawn.position === 0 && color,
+											borderRadius: "50%",
+											margin: "5px",
+										}}
+										key={pawn.index}
+									></div>
+								)
+						)}
+					</div>
+				</div>
 			</div>
 		</div>
 	);

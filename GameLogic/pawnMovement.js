@@ -25,34 +25,35 @@ const move = (
 	homePosition,
 	setWinner
 ) => {
-	for (let i = 0; i < diceRoll; i++) {
-		for (let j = 0; j < 300000000; j++) {
-			("");
-		}
-		let winnerCount = 0;
-		const updatePawns = activePawns[playerTurn].map((pawn) => {
-			if (!pawn.inHome) {
-				if (pawn.index === pawnNumber && pawn.active) {
-					if (pawn.position === endingPosition && !pawn.toHome) {
-						pawn.toHome = true;
-						pawn.position = setColorPath(playerTurn);
-					}
-					pawn.position++;
-					if (pawn.position >= homePosition) {
-						winnerCount++;
-						pawn.inHome = true;
-					}
-					if (pawn.position >= 45 && !pawn.toHome) pawn.position = 1;
+	let winnerCount = 0;
+	let i = 1;
+	const interval = setInterval(() => {
+		if (i > diceRoll) return clearInterval(interval);
+		const pawn = activePawns[playerTurn].find(
+			(p) => p.index === pawnNumber && p.active
+		);
+		if (!pawn.inHome) {
+			if (pawn.index === pawnNumber && pawn.active) {
+				if (pawn.position === endingPosition && !pawn.toHome) {
+					pawn.toHome = true;
+					pawn.position = setColorPath(playerTurn);
 				}
-			} else {
-				winnerCount++;
+				pawn.position++;
+				if (pawn.position >= homePosition) {
+					winnerCount++;
+					pawn.inHome = true;
+				}
+				if (pawn.position >= 45 && !pawn.toHome) pawn.position = 1;
 			}
-			return pawn;
-		});
+		} else winnerCount++;
 		if (winnerCount >= 4) setWinner(true);
-		const updatedActivePawns = updateActivePawns(playerTurn, updatePawns);
+		const updatedActivePawns = updateActivePawns(
+			playerTurn,
+			activePawns[playerTurn]
+		);
 		setActivePawns(updatedActivePawns);
-	}
+		i++;
+	}, 250);
 };
 
 const activatePawn = (

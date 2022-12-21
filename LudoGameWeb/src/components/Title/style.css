@@ -1,0 +1,13 @@
+h1,
+h3 {
+	background: linear-gradient(to right, #ff4000 0%, #e0b60b 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-family: cursive;
+	font-size: 150px !important;
+	filter: drop-shadow(4px 4px 10px #ff4000);
+}
+h3 {
+	font-size: 75px !important;
+}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import Title from "../Title/Title";
 import "./style.css";
 
-const Ranking = () => {
+const Ranking = ({ setOption }) => {
 	const [users, setUsers] = useState([]);
 	useEffect(() => {
 		fetch("/users.json")
@@ -12,15 +13,30 @@ const Ranking = () => {
 	}, []);
 
 	return (
-		<div>
-			<ul>
-				{users.map((user, id) => (
-					<li key={user.id}>
-						Pozycja: {id + 1} Gracz: {user.username} Wygrane: {user.score / 3}
-					</li>
-				))}
-			</ul>
-		</div>
+		<>
+			<Title />
+			<div style={{ display: "flex", placeContent: "center" }}>
+				<table>
+					<tr className="aa">
+						<th>Pozycja</th>
+						<th>Nazwa Gracza</th>
+						<th>Wygrane gry</th>
+					</tr>
+					{users
+						.sort((a, b) => b.score - a.score)
+						.map((user, id) => (
+							<tr key={user.id}>
+								<td>{id + 1}</td>
+								<td>{user.username}</td>
+								<td>{user.score / 3}</td>
+							</tr>
+						))}
+				</table>
+			</div>
+			<button style={{ marginTop: "20px" }} onClick={() => setOption("")}>
+				Powrót
+			</button>
+		</>
 	);
 };
 

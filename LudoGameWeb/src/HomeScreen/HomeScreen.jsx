@@ -1,11 +1,20 @@
 import React from "react";
 import Menu from "../components/Menu/Menu";
+import Title from "../components/Title/Title";
 
 const HomeScreen = ({ setOption }) => {
 	return (
-		<div>
-			<Menu {...{ setOption }} newgame="newgame" ranking="ranking" web="web" />
-		</div>
+		<>
+			<Title />
+			<div style={{ display: "flex", placeContent: "center", }}>
+				<Menu
+					{...{ setOption }}
+					newgame="newgame"
+					ranking="ranking"
+					exit="exit"
+				/>
+			</div>
+		</>
 	);
 };
 

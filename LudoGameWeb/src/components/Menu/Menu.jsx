@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 const elementToPL = require("../../../../Misc/elementToPL");
+import "../../App.css";
 
 const Menu = ({ theme, setOption, players, ...rest }) => {
 	let indexes = Object.values(rest);

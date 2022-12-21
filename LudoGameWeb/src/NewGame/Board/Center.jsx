@@ -5,19 +5,21 @@ const Center = ({ diceRoll, playerTurn, players, pawnNumber }) => {
 		<div
 			style={{
 				width: "200px",
-				borderLeft: "1px solid blue",
-				borderTop: "1px solid yellow",
-				borderRight: "1px solid green",
-				borderBottom: "1px solid red",
+				borderLeft: "2px solid blue",
+				borderTop: "2px solid yellow",
+				borderRight: "2px solid green",
+				borderBottom: "2px solid red",
 				borderRadius: "15px",
 			}}
 		>
-			<p>
-				{playerTurn} {players[playerTurn].username}
+			<p>Rzuca</p>
+			<p style={{ color: playerTurn, fontWeight: "bold", fontSize: "20px" }}>
+				{players[playerTurn].username}
 			</p>
-			<p>
-				{playerTurn} {diceRoll} {pawnNumber}
+			<p style={{ color: playerTurn, fontWeight: "bold", fontSize: "20px" }}>
+				{diceRoll}
 			</p>
+			<p>Pionek nr. {pawnNumber}</p>
 		</div>
 	);
 };

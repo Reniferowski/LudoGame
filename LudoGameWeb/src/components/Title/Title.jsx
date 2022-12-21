@@ -1,7 +1,10 @@
 import React from "react";
+import "./style.css";
 
 const Title = () => {
-	<GradientText data="Ludo Game" animating={false} />;
+    return (
+        <h1>Ludo Game</h1>
+    )
 };
 
 export default Title;

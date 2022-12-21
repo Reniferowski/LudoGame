@@ -5,6 +5,6 @@ const elementToPL = (element) =>
 		? "Ranking"
 		: element === "web"
 		? "Tryb Graficzny"
-		: "Wyjście";
+		: "Zamknij grę";
 
 module.exports = elementToPL;
